@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "575074168934",
+    "project_id": "studentatendencemark",
+    "storage_bucket": "studentatendencemark.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575074168934:android:5c52fb00e021102516bda7",
+        "android_client_info": {
+          "package_name": "com.example.students"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575074168934-2tj4hv84s46n113if26gkc5tvhh405j5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtVXYhbppSHrHCuY9-V78Sml04TjNiSpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575074168934-2tj4hv84s46n113if26gkc5tvhh405j5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "575074168934-8fv2pvq46jlr6160tg97n657l3vngd3t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.student"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
