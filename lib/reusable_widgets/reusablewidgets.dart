@@ -42,7 +42,7 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
 Container signInSignUpButton(
     BuildContext context, bool isLogin, Function onTap) {
   return Container(
-      width: MediaQuery.of(context).size.width / 1.5,
+      width: MediaQuery.of(context).size.width / 1,
       height: 60,
       margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
