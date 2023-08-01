@@ -1,6 +1,6 @@
 # students
 
-<p>A application than scan qr code of the student and mark attendance</p>
+<p>A application that scan qr code of the student and mark attendance</p>
 
 ## Getting Started
 
