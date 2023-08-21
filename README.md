@@ -1,6 +1,6 @@
 # students
 
-A new Flutter project.
+<p>A application that scan qr code of the student and mark attendance</p>
 
 ## Getting Started
 
