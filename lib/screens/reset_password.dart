@@ -1,24 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:students/screens/home_screen.dart';
-import 'package:students/screens/signup_screen.dart';
-import 'package:students/utils/color_util.dart';
 
 import '../reusable_widgets/reusablewidgets.dart';
+import '../utils/color_util.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({Key? key}) : super(key: key);
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  _ResetPasswordState createState() => _ResetPasswordState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
+class _ResetPasswordState extends State<ResetPassword> {
+  TextEditingController _userNameTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _comfirpasswordTextController = TextEditingController();
+  bool passwordsMatch = true;
+
+  get obscureText => null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          "Reset Password",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -34,74 +48,45 @@ class _SignInScreenState extends State<SignInScreen> {
                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
               children: <Widget>[
-                logoWidget("assests/images/student.png"),
-                const SizedBox(
+                SizedBox(
+                  height: 30,
+                ),
+                reusableTextField("Enter Username", Icons.person_outline, false,
+                    _userNameTextController),
+                SizedBox(
                   height: 30,
                 ),
                 reusableTextField("Enter Email", Icons.person_outline, false,
                     _emailTextController),
-                const SizedBox(
+                SizedBox(
                   height: 30,
                 ),
                 reusableTextField("Enter Password", Icons.lock_outline, true,
                     _passwordTextController),
-                const SizedBox(
+                SizedBox(
                   height: 30,
                 ),
-                forgetPassword(context),
-                signInSignUpButton(context, true, () {
+                reusableTextField("Confirm Password", Icons.lock_outline, true,
+                    _comfirpasswordTextController),
+                SizedBox(
+                  height: 30,
+                ),
+                signInSignUpButton(context, false, () {
                   FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
+                      .createUserWithEmailAndPassword(
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
-                    print("sign in success");
-                    Navigator.pushReplacement(context,
+                    Navigator.push(context,
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   }).onError((error, stackTrace) {
                     print("Error: ${error.toString()}");
                   });
                 }),
-                signUpOption()
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Row signUpOption() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text("Don't have account?  ",
-            style: TextStyle(color: Colors.white70)),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignUpScreen()));
-          },
-          child: const Text("Sign Up",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        )
-      ],
-    );
-  }
-
-  Widget forgetPassword(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 35,
-      alignment: Alignment.bottomRight,
-      child: TextButton(
-        child: const Text(
-          "Forgot Password? ",
-          style: TextStyle(color: Colors.white70),
-          textAlign: TextAlign.right,
-        ),
-        onPressed: () {},
       ),
     );
   }
