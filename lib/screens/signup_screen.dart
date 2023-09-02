@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:students/screens/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import '../reusable_widgets/reusablewidgets.dart';
 import '../utils/color_util.dart';
@@ -77,6 +79,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
+                    User? user = value.user;
+                    if (user != null) {
+                      // Store the user's name in Firebase Realtime Database
+                      FirebaseDatabase.instance
+                          .reference()
+                          .child('students')
+                          .child(user.uid)
+                          .set({
+                        'name': _userNameTextController.text,
+                        'uniemail': '',
+                        'uniID': '',
+                        'uniName': '',
+                      });
+                    }
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   }).onError((error, stackTrace) {
