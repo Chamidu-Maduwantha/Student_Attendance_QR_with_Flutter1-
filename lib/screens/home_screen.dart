@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final DatabaseReference _database = FirebaseDatabase.instance.reference();
   User? user;
   bool detailsFilled = false; // A flag to check if details have been filled
+  String studentName = '';
 
   Future<void> _signOut() async {
     await _auth.signOut();
@@ -29,6 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
       studentRef.onValue.listen((event) {
         DataSnapshot snapshot = event.snapshot;
         Map<dynamic, dynamic>? data = snapshot.value as Map<dynamic, dynamic>?;
+
+        studentName = data?['email'];
 
         if (data != null) {
           // Check if the 'detailsFilled' flag exists in the data
@@ -65,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Welcome to Your App!',
+              'Welcome, $studentName!', // Display the student's name here
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -129,10 +132,11 @@ class _DetailsFormPageState extends State<DetailsFormPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('University:'),
+            Text('University Name:'),
             TextFormField(
               controller: _universityController,
-              decoration: InputDecoration(hintText: 'Enter your university'),
+              decoration:
+                  InputDecoration(hintText: 'Enter your university name'),
             ),
             Text('University ID:'),
             TextFormField(
